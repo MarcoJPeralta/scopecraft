@@ -1,69 +1,38 @@
-# React + TypeScript + Vite
+# ScopeCraft
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ScopeCraft helps freelancers and agencies scope a project and turn it into a client-ready budget proposal.
 
-Currently, two official plugins are available:
+1. **Wizard** (`/wizard`): pick the project type, describe the project and client, choose features and constraints, then set complexity, timeline and your hourly rate.
+2. **Scope Builder** (`/scope-builder`): the answers become editable line items (hours × rate). Add, remove or tweak items and set contingency, discount, tax and deposit with live totals.
+3. **Preview** (`/preview`): a printable proposal with scope by category, timeline, investment, payment schedule, assumptions and a signature block. Use **Print / Save as PDF** to send it.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Everything is saved in the browser (localStorage), so a refresh doesn't lose your work. **Start over** in the wizard clears the current proposal but keeps your rate, currency and name.
 
-## Expanding the ESLint configuration
+## Development
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev     # start the dev server
+npm run build   # type-check and build
+npm run lint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Stack: React 19, TypeScript, Vite, Tailwind CSS v4, Sass, Zustand and React Router.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Customizing estimates
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+All pricing data lives in `src/lib/mapping/`:
+
+| File | What it controls |
+| --- | --- |
+| `project-types.ts` | Project types offered in step 1 |
+| `deliverables.ts` | Base deliverables per project type, and extra work triggered by constraints (hours) |
+| `features.ts` | Selectable features, their hours and which project types they apply to |
+| `constraints.ts` | Constraint questions and options |
+| `estimates.ts` | Complexity multipliers, timeline surcharges, currencies and hours per week |
+
+`src/lib/pricing.ts` combines them: hours are multiplied by complexity, priced at the hourly rate (or a per-item override), then the timeline surcharge, contingency, discount and tax are applied in that order.
+
+## Theming
+
+Light and dark mode are driven by the `.dark` class on `<html>`, set by `ThemeProvider`. Colors are semantic tokens defined in `src/index.css` (`bg-background`, `bg-surface`, `text-foreground`, `text-muted`, `border-border`, `bg-primary`...). Use those instead of fixed palette colors like `gray-600` so components switch themes automatically. Tailwind v4 is configured in CSS; there is no `tailwind.config.js`.

@@ -1,14 +1,54 @@
-.button {
-    background-color: var(--color-primary);
-    display: inline-block;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-        background-color: var(--color-primary-hover);
+// Inside the components layer so Tailwind utilities (e.g. px-6, w-full) can override it
+@layer components {
+    .button {
+        background-color: var(--sc-primary);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
         color: white;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+
+        &:hover {
+            background-color: var(--sc-primary-hover);
+            color: white;
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--sc-primary);
+            outline-offset: 2px;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        &--secondary {
+            background-color: transparent;
+            color: var(--sc-foreground);
+            border-color: var(--sc-border);
+
+            &:hover {
+                background-color: var(--sc-surface-muted);
+                color: var(--sc-foreground);
+            }
+        }
+
+        &--danger {
+            background-color: transparent;
+            color: var(--sc-danger);
+            border-color: var(--sc-border);
+
+            &:hover {
+                background-color: var(--sc-surface-muted);
+                color: var(--sc-danger);
+            }
+        }
     }
 }

@@ -62,17 +62,17 @@ function AudioPlayer({ src, className = "" }: AudioPlayerProps) {
 
       <button
         onClick={togglePlayPause}
-        className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white transition-colors duration-200"
+        className="flex items-center justify-center w-8 h-8 rounded-full bg-primary hover:bg-primary-hover text-white cursor-pointer transition-colors duration-200"
         aria-label={isPlaying ? "Pause" : "Play"}
       >
         {isPlaying ? (
-          <PauseIcon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+          <PauseIcon className="w-5 h-5" />
         ) : (
-          <PlayIcon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+          <PlayIcon className="w-5 h-5" />
         )}
       </button>
 
-      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+      <div className="flex items-center gap-2 text-sm text-muted">
         <span className="min-w-[35px]">{formatTime(currentTime)}</span>
         <input
           type="range"
@@ -80,7 +80,7 @@ function AudioPlayer({ src, className = "" }: AudioPlayerProps) {
           max={duration || 0}
           value={currentTime}
           onChange={handleSeek}
-          className="w-20 h-1 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
+          className="w-20 h-1 rounded-lg appearance-none cursor-pointer slider"
         />
         <span className="min-w-[35px]">{formatTime(duration)}</span>
       </div>

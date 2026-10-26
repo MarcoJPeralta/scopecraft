@@ -7,7 +7,7 @@ function ColorSchemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-lg border border-primary/20 dark:border-primary/30 dark:bg-surface bg-white hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors duration-200"
+      className="p-2 rounded-lg border border-border bg-surface hover:bg-primary/10 transition-colors duration-200 cursor-pointer"
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
     >
       {theme === "light" ? (

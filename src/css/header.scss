@@ -21,7 +21,8 @@
 
 // Main styles
 .site-header {
-  background-color: var(--color-background);
+  background-color: var(--sc-background);
+  border-bottom: 1px solid var(--sc-border);
 
   &__logo {
     height: 2rem;
@@ -65,5 +66,4 @@
   }
 }
 
-// Dark mode styles are now handled by CSS custom properties in :root and .dark
-// The slider will automatically use the appropriate colors based on the theme
+// Dark mode is handled by the slider CSS variables in index.css (:root and .dark)

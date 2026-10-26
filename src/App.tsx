@@ -1,17 +1,16 @@
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Wizard from "./pages/Wizard";
 import ScopeBuilder from "./pages/ScopeBuilder";
 import Preview from "./pages/Preview";
 import Header from "./components/Header";
-import { ThemeProvider } from "./contexts/ThemeContext.tsx";
+import { ThemeProvider } from "./contexts/ThemeProvider.tsx";
 
 function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
-        <div className="">
+        <div className="min-h-screen">
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />

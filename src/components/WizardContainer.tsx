@@ -1,15 +1,12 @@
 import { useWizardStore } from "../store/wizard-store.ts";
-import { useEffect } from "react";
+import WizardProgress from "./wizard/WizardProgress";
 import WizardStepInfo from "./wizard/WizardStepInfo";
 import WizardStepType from "./wizard/WizardStepType";
 import WizardStepFeatures from "./wizard/WizardStepFeatures";
+import WizardStepDetails from "./wizard/WizardStepDetails";
 
 function WizardContainer() {
-  const { step, formData } = useWizardStore();
-
-  useEffect(() => {
-    console.log(formData, "formData");
-  }, [formData]);
+  const { step } = useWizardStore();
 
   const renderCurrentStep = () => {
     switch (step) {
@@ -19,12 +16,20 @@ function WizardContainer() {
         return <WizardStepInfo />;
       case 3:
         return <WizardStepFeatures />;
+      case 4:
+        return <WizardStepDetails />;
       default:
         return <WizardStepType />;
     }
   };
 
-  return <div className="pt-10 px-4 min-h-screen">{renderCurrentStep()}</div>;
+  return (
+    <div className="pb-20">
+      <WizardProgress />
+      {/* key remounts the step so its local state re-reads the store */}
+      <div key={step}>{renderCurrentStep()}</div>
+    </div>
+  );
 }
 
 export default WizardContainer;
