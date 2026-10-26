@@ -35,4 +35,4 @@ All pricing data lives in `src/lib/mapping/`:
 
 ## Theming
 
-Light and dark mode are driven by the `.dark` class on `<html>`, set by `ThemeProvider`. Colors are semantic tokens defined in `src/index.css` (`bg-background`, `bg-surface`, `text-foreground`, `text-muted`, `border-border`, `bg-primary`...). Use those instead of fixed palette colors like `gray-600` so components switch themes automatically. Tailwind v4 is configured in CSS; there is no `tailwind.config.js`.
+Light and dark mode are driven by the `.dark` class on `<html>`, set by `ThemeProvider`. Colors are derived from the logo palette (periwinkle `#698BC0`, navy `#174B72`, teal `#51CAC5`) and exposed as semantic tokens in `src/index.css`: `bg-background`, `bg-surface`, `text-foreground`, `text-muted`, `border-border`, `bg-primary`, `bg-brand-gradient`... Use those instead of fixed palette colors like `gray-600` so components switch themes automatically. Tailwind v4 is configured in CSS; there is no `tailwind.config.js`. The `Logo` component shows `Logo.svg` in light mode and `Logo-white.svg` in dark mode.

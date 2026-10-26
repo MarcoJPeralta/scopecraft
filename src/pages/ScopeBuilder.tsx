@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { PlusIcon, TrashIcon } from "@radix-ui/react-icons";
 import BudgetSummary from "../components/BudgetSummary";
+import InfoTip from "../components/InfoTip";
 import { CURRENCIES } from "../lib/mapping/estimates";
 import { computeTotals, formatCurrency, itemAmount } from "../lib/pricing";
 import { useWizardStore, type Settings } from "../store/wizard-store";
@@ -11,8 +12,12 @@ function toNumber(value: string) {
   return Number.isFinite(number) && number >= 0 ? number : 0;
 }
 
-const PERCENT_SETTINGS: { key: keyof Settings; label: string }[] = [
-  { key: "contingency", label: "Contingency %" },
+const PERCENT_SETTINGS: { key: keyof Settings; label: string; help?: string }[] = [
+  {
+    key: "contingency",
+    label: "Contingency %",
+    help: "A safety buffer added on top of the estimate to cover unknowns: scope surprises, extra revision rounds or tasks that take longer than planned. 10 to 15% is typical; use more when requirements are still vague.",
+  },
   { key: "discount", label: "Discount %" },
   { key: "tax", label: "Tax %" },
   { key: "deposit", label: "Deposit %" },
@@ -177,11 +182,14 @@ function ScopeBuilder() {
                     ))}
                   </select>
                 </div>
-                {PERCENT_SETTINGS.map(({ key, label }) => (
+                {PERCENT_SETTINGS.map(({ key, label, help }) => (
                   <div key={key}>
-                    <label htmlFor={key} className="label">
-                      {label}
-                    </label>
+                    <div className="mb-1.5 flex items-center gap-1.5">
+                      <label htmlFor={key} className="label mb-0">
+                        {label}
+                      </label>
+                      {help && <InfoTip label={label.replace(" %", "")}>{help}</InfoTip>}
+                    </div>
                     <input
                       id={key}
                       type="number"

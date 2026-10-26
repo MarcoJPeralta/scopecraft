@@ -1,4 +1,4 @@
-import { useWizardStore } from "../../store/wizard-store.ts";
+import { TOTAL_STEPS, useWizardStore } from "../../store/wizard-store.ts";
 
 const STEPS = ["Project type", "Project info", "Features", "Estimate"];
 
@@ -7,33 +7,30 @@ function WizardProgress() {
 
   return (
     <nav aria-label="Wizard progress" className="mb-10">
-      <ol className="flex gap-2">
+      {/* Single track filled with the logo gradient */}
+      <div className="h-1.5 overflow-hidden rounded-full bg-border">
+        <div
+          className="bg-brand-gradient h-full rounded-full transition-[width] duration-500"
+          style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
+        />
+      </div>
+      <ol className="mt-2 hidden grid-cols-4 gap-2 sm:grid">
         {STEPS.map((label, index) => {
           const number = index + 1;
-          const isDone = number < step;
           const isCurrent = number === step;
 
           return (
-            <li key={label} className="flex-1">
+            <li key={label}>
               <button
                 type="button"
                 onClick={() => setStep(number)}
                 disabled={number > step}
                 aria-current={isCurrent ? "step" : undefined}
-                className="group w-full text-left disabled:cursor-default"
+                className={`text-left text-xs font-medium transition-colors enabled:cursor-pointer enabled:hover:text-primary disabled:cursor-default ${
+                  isCurrent ? "text-foreground" : "text-muted"
+                }`}
               >
-                <span
-                  className={`block h-1.5 rounded-full transition-colors ${
-                    isDone || isCurrent ? "bg-primary" : "bg-border"
-                  } ${isDone ? "group-hover:bg-primary-hover" : ""}`}
-                />
-                <span
-                  className={`mt-2 hidden text-xs font-medium sm:block ${
-                    isCurrent ? "text-foreground" : "text-muted"
-                  }`}
-                >
-                  {number}. {label}
-                </span>
+                {number}. {label}
               </button>
             </li>
           );

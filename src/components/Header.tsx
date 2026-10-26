@@ -1,7 +1,7 @@
 import "../css/header.scss";
 import "../css/buttons.scss";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../assets/Logo.svg";
+import Logo from "./Logo";
 import ColorSchemeToggle from "./colorScheme";
 
 const NAV_LINKS = [
@@ -14,7 +14,7 @@ function Header() {
   return (
     <header className="site-header flex flex-wrap items-center justify-between gap-4 p-4 transition-colors duration-300">
       <Link to="/" className="flex items-center">
-        <img src={logo} alt="ScopeCraft" className="site-header__logo w-auto" />
+        <Logo className="site-header__logo w-auto" />
       </Link>
       <nav aria-label="Main" className="order-last w-full md:order-none md:w-auto">
         <ul className="flex gap-6">

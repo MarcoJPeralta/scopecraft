@@ -42,7 +42,7 @@ function OptionCard({
         aria-hidden="true"
         className={`absolute top-4 right-4 flex h-5 w-5 items-center justify-center border transition-colors ${
           multiple ? "rounded-md" : "rounded-full"
-        } ${selected ? "border-primary bg-primary text-white" : "border-border bg-background"}`}
+        } ${selected ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background"}`}
       >
         {selected && <CheckIcon className="h-4 w-4" />}
       </span>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowLeftIcon, DownloadIcon } from "@radix-ui/react-icons";
-import logo from "../assets/Logo.svg";
 import BudgetSummary from "../components/BudgetSummary";
+import Logo from "../components/Logo";
 import { CONSTRAINTS } from "../lib/mapping/constraints";
 import { getComplexity, getTimeline, HOURS_PER_WEEK } from "../lib/mapping/estimates";
 import { getProjectType } from "../lib/mapping/project-types";
@@ -72,7 +72,9 @@ function Preview() {
       <article className="mx-auto max-w-4xl rounded-xl border border-border bg-surface p-8 sm:p-12 print:max-w-none print:rounded-none print:border-0 print:p-0">
         <header className="mb-10 flex flex-wrap items-start justify-between gap-6 border-b border-border pb-8">
           <div>
-            <img src={logo} alt="ScopeCraft" className="mb-6 h-8 w-auto" />
+            <div className="mb-6">
+              <Logo className="h-8 w-auto" />
+            </div>
             <p className="text-sm font-semibold tracking-wide text-muted uppercase">
               Project proposal
             </p>

@@ -1,69 +1,11 @@
-// Mixins
-@mixin slider-appearance {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-@mixin slider-track-base {
-  height: var(--slider-track-height);
-  border-radius: var(--slider-border-radius);
-}
-
-@mixin slider-thumb-base {
-  height: var(--slider-thumb-size);
-  width: var(--slider-thumb-size);
-  border-radius: var(--slider-thumb-border-radius);
-  cursor: pointer;
-  transition: background-color var(--slider-transition-duration);
-}
-
 // Main styles
 .site-header {
   background-color: var(--sc-background);
-  border-bottom: 1px solid var(--sc-border);
+  // Thin accent line in the logo gradient
+  border-bottom: 2px solid transparent;
+  border-image: var(--sc-gradient) 1;
 
   &__logo {
     height: 2rem;
   }
 }
-
-// Audio Player Styles
-.slider {
-  @include slider-appearance;
-
-  // Webkit styles
-  &::-webkit-slider-track {
-    @include slider-track-base;
-    background: var(--slider-track-bg);
-  }
-
-  &::-webkit-slider-thumb {
-    @include slider-thumb-base;
-    background: var(--slider-thumb-bg);
-
-    &:hover {
-      background: var(--slider-thumb-hover);
-    }
-  }
-
-  // Firefox styles
-  &::-moz-range-track {
-    @include slider-track-base;
-    background: var(--slider-track-bg);
-    border: none;
-  }
-
-  &::-moz-range-thumb {
-    @include slider-thumb-base;
-    background: var(--slider-thumb-bg);
-    border: none;
-
-    &:hover {
-      background: var(--slider-thumb-hover);
-    }
-  }
-}
-
-// Dark mode is handled by the slider CSS variables in index.css (:root and .dark)

@@ -6,7 +6,7 @@
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        color: white;
+        color: var(--sc-primary-foreground);
         font-weight: 500;
         padding: 0.5rem 1rem;
         border: 1px solid transparent;
@@ -16,7 +16,7 @@
 
         &:hover {
             background-color: var(--sc-primary-hover);
-            color: white;
+            color: var(--sc-primary-foreground);
         }
 
         &:focus-visible {

@@ -8,55 +8,50 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * Semantic color tokens. Components use these (bg-surface, text-muted,
- * border-border...) so they switch automatically between light and dark.
+ * Semantic color tokens, derived from the logo palette:
+ * periwinkle #698BC0 -> navy #174B72 -> teal #51CAC5.
+ * Components use these (bg-surface, text-muted, border-border...) so they
+ * switch automatically between light and dark.
  */
 :root {
   color-scheme: light;
 
   --sc-background: #ffffff;
-  --sc-foreground: #213547;
-  --sc-surface: #f8fafc;
-  --sc-surface-muted: #f1f5f9;
-  --sc-border: #e2e8f0;
-  --sc-muted: #64748b;
-  --sc-primary: #51cac5;
-  --sc-primary-hover: #174b72;
+  --sc-foreground: #14324b;
+  --sc-surface: #f5f8fc;
+  --sc-surface-muted: #eaf0f7;
+  --sc-border: #d8e2ee;
+  --sc-muted: #55698a;
+  --sc-primary: #174b72;
+  --sc-primary-hover: #2c5b85;
+  --sc-primary-foreground: #ffffff;
   --sc-secondary: #698bc0;
-  --sc-tertiary: #174b72;
-  --sc-link: #174b72;
+  --sc-accent: #51cac5;
+  --sc-link: #2c5b85;
   --sc-link-hover: #698bc0;
   --sc-danger: #dc2626;
-
-  /* Slider variables */
-  --slider-track-height: 4px;
-  --slider-thumb-size: 12px;
-  --slider-border-radius: 2px;
-  --slider-thumb-border-radius: 50%;
-  --slider-transition-duration: 0.2s;
-  --slider-track-bg: var(--sc-border);
-  --slider-thumb-bg: var(--sc-primary);
-  --slider-thumb-hover: var(--sc-primary-hover);
+  --sc-gradient: linear-gradient(90deg, #698bc0, #174b72 45%, #51cac5);
 }
 
+/* Dark mode uses the navy from the logo as its base and teal for actions */
 .dark {
   color-scheme: dark;
 
-  --sc-background: #242424;
-  --sc-foreground: rgba(255, 255, 255, 0.87);
-  --sc-surface: #2c2c2e;
-  --sc-surface-muted: #363638;
-  --sc-border: #3f3f46;
-  --sc-muted: #a1a1aa;
+  --sc-background: #0f1c2a;
+  --sc-foreground: #e6edf5;
+  --sc-surface: #162636;
+  --sc-surface-muted: #1e3247;
+  --sc-border: #2a4058;
+  --sc-muted: #94a8c2;
   --sc-primary: #51cac5;
-  --sc-primary-hover: #698bc0;
+  --sc-primary-hover: #7ad8d4;
+  --sc-primary-foreground: #0b2236;
   --sc-secondary: #698bc0;
-  --sc-tertiary: #174b72;
+  --sc-accent: #51cac5;
   --sc-link: #8fb0e0;
   --sc-link-hover: #51cac5;
   --sc-danger: #f87171;
-
-  --slider-thumb-hover: var(--sc-primary-hover);
+  --sc-gradient: linear-gradient(90deg, #698bc0, #51cac5);
 }
 
 @theme inline {
@@ -68,9 +63,9 @@
   --color-muted: var(--sc-muted);
   --color-primary: var(--sc-primary);
   --color-primary-hover: var(--sc-primary-hover);
+  --color-primary-foreground: var(--sc-primary-foreground);
   --color-secondary: var(--sc-secondary);
-  --color-tertiary: var(--sc-tertiary);
-  --color-accent: var(--sc-primary);
+  --color-accent: var(--sc-accent);
   --color-danger: var(--sc-danger);
 }
 
@@ -144,6 +139,10 @@
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--sc-primary) 25%, transparent);
   }
 
+  .bg-brand-gradient {
+    background-image: var(--sc-gradient);
+  }
+
   .label {
     display: block;
     margin-bottom: 0.375rem;
@@ -163,6 +162,8 @@
     --sc-surface-muted: #f3f4f6;
     --sc-border: #d1d5db;
     --sc-muted: #4b5563;
+    --sc-primary: #174b72;
+    --sc-primary-foreground: #ffffff;
   }
 
   .site-header,
