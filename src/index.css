@@ -1,76 +1,181 @@
 @import "tailwindcss";
 
+/*
+ * Tailwind v4 ignores tailwind.config.js, so dark mode and brand colors are
+ * configured here. `dark:` follows the `.dark` class set by ThemeProvider
+ * instead of the OS preference.
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Semantic color tokens, derived from the logo palette:
+ * periwinkle #698BC0 -> navy #174B72 -> teal #51CAC5.
+ * Components use these (bg-surface, text-muted, border-border...) so they
+ * switch automatically between light and dark.
+ */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  color-scheme: light;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Light theme variables */
-  --color-text: #213547;
-  --color-background: #ffffff;
-  --color-surface: #f9f9f9;
-  --color-border: #e5e7eb;
-  --color-primary: #51CAC5;
-  --color-primary-hover: #174B72;
-  --color-secondary: #698BC0;
-  --color-tertiary: #174B72;
-  --color-accent: #51CAC5;
-  
-  /* Slider variables */
-  --slider-track-height: 4px;
-  --slider-thumb-size: 12px;
-  --slider-border-radius: 2px;
-  --slider-thumb-border-radius: 50%;
-  --slider-transition-duration: 0.2s;
-  --slider-track-bg: #e5e7eb;
-  --slider-thumb-bg: #51CAC5;
-  --slider-thumb-hover: #174B72;
+  --sc-background: #ffffff;
+  --sc-foreground: #14324b;
+  --sc-surface: #f5f8fc;
+  --sc-surface-muted: #eaf0f7;
+  --sc-border: #d8e2ee;
+  --sc-muted: #55698a;
+  --sc-primary: #174b72;
+  --sc-primary-hover: #2c5b85;
+  --sc-primary-foreground: #ffffff;
+  --sc-secondary: #698bc0;
+  --sc-accent: #51cac5;
+  --sc-link: #2c5b85;
+  --sc-link-hover: #698bc0;
+  --sc-danger: #dc2626;
+  --sc-gradient: linear-gradient(90deg, #698bc0, #174b72 45%, #51cac5);
 }
 
+/* Dark mode uses the navy from the logo as its base and teal for actions */
 .dark {
-  /* Dark theme variables */
-  --color-text: rgba(255, 255, 255, 0.87);
-  --color-background: #242424;
-  --color-surface: #1a1a1a;
-  --color-border: #374151;
-  --color-primary: #51CAC5;
-  --color-primary-hover: #698BC0;
-  --color-secondary: #698BC0;
-  --color-tertiary: #174B72;
-  --color-accent: #51CAC5;
-  
-  /* Dark slider variables */
-  --slider-track-bg: #374151;
-  --slider-thumb-bg: #51CAC5;
-  --slider-thumb-hover: #698BC0;
+  color-scheme: dark;
+
+  --sc-background: #0f1c2a;
+  --sc-foreground: #e6edf5;
+  --sc-surface: #162636;
+  --sc-surface-muted: #1e3247;
+  --sc-border: #2a4058;
+  --sc-muted: #94a8c2;
+  --sc-primary: #51cac5;
+  --sc-primary-hover: #7ad8d4;
+  --sc-primary-foreground: #0b2236;
+  --sc-secondary: #698bc0;
+  --sc-accent: #51cac5;
+  --sc-link: #8fb0e0;
+  --sc-link-hover: #51cac5;
+  --sc-danger: #f87171;
+  --sc-gradient: linear-gradient(90deg, #698bc0, #51cac5);
 }
 
-a {
-  font-weight: 500;
-  color: var(--color-tertiary);
-  text-decoration: inherit;
-  transition: color 0.25s;
-}
-a:hover {
-  color: var(--color-secondary);
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  color: var(--color-text);
-  background-color: var(--color-background);
-  transition: color 0.3s ease, background-color 0.3s ease;
+@theme inline {
+  --color-background: var(--sc-background);
+  --color-foreground: var(--sc-foreground);
+  --color-surface: var(--sc-surface);
+  --color-surface-muted: var(--sc-surface-muted);
+  --color-border: var(--sc-border);
+  --color-muted: var(--sc-muted);
+  --color-primary: var(--sc-primary);
+  --color-primary-hover: var(--sc-primary-hover);
+  --color-primary-foreground: var(--sc-primary-foreground);
+  --color-secondary: var(--sc-secondary);
+  --color-accent: var(--sc-accent);
+  --color-danger: var(--sc-danger);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  color: var(--color-text);
+/* Base styles live in a layer so Tailwind utilities can override them */
+@layer base {
+  :root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    color: var(--sc-foreground);
+    background-color: var(--sc-background);
+    transition:
+      color 0.3s ease,
+      background-color 0.3s ease;
+  }
+
+  a {
+    font-weight: 500;
+    color: var(--sc-link);
+    text-decoration: inherit;
+    transition: color 0.25s;
+  }
+
+  a:hover {
+    color: var(--sc-link-hover);
+  }
+
+  h1 {
+    line-height: 1.1;
+  }
+
+  input,
+  textarea,
+  select {
+    color: inherit;
+  }
+}
+
+@layer components {
+  .input {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid var(--sc-border);
+    background-color: var(--sc-background);
+    padding: 0.625rem 0.875rem;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.3s ease;
+  }
+
+  .input::placeholder {
+    color: var(--sc-muted);
+    opacity: 0.8;
+  }
+
+  .input:focus {
+    outline: none;
+    border-color: var(--sc-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--sc-primary) 25%, transparent);
+  }
+
+  .bg-brand-gradient {
+    background-image: var(--sc-gradient);
+  }
+
+  .label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+}
+
+/* Proposal printing: hide app chrome and always print in light colors */
+@media print {
+  :root,
+  .dark {
+    color-scheme: light;
+    --sc-background: #ffffff;
+    --sc-foreground: #111827;
+    --sc-surface: #ffffff;
+    --sc-surface-muted: #f3f4f6;
+    --sc-border: #d1d5db;
+    --sc-muted: #4b5563;
+    --sc-primary: #174b72;
+    --sc-primary-foreground: #ffffff;
+  }
+
+  .site-header,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    transition: none;
+  }
+
+  @page {
+    margin: 16mm;
+  }
 }
